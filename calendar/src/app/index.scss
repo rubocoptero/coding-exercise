@@ -12,20 +12,43 @@ $icon-font-path: "../../bower_components/bootstrap-sass-official/assets/fonts/bo
 // bower:scss
 // endbower
 
-.browsehappy {
-  margin: 0.2em 0;
-  background: #ccc;
-  color: #000;
-  padding: 0.2em 0;
+.margin {
+  margin: 0.5em;
 }
 
-.thumbnail {
-  height: 200px;
+.week-calendar {
+  width: 100%;
+  border: 1px solid black;
 
-  img.pull-right {
-    width: 50px;
+  .week-pagination {
+    text-align: center;
+    padding: 0.5em 0;
+
+    .current-week {
+      display: inline-block;
+      margin: 0.5em;
+    }
+  }
+
+  .day-of-the-week {
+    width: percentage(1.0 / 7);
+    text-align: center;
+    border: 1px solid black;
+  }
+
+  .past-day {
+    background-color: lightgray;
+  }
+
+  .day-available {
+    background-color: mediumseagreen;
+  }
+
+  .day-unavailable {
+    background-color: tomato;
   }
 }
+
 
 /**
  *  Do not remove this comments bellow. It's the markers used by gulp-inject to inject

@@ -6,34 +6,31 @@
     .controller('MainController', MainController);
 
   /** @ngInject */
-  function MainController($timeout, webDevTec, toastr) {
+  function MainController(Week, DateService, AvailabilityRepository) {
     var vm = this;
 
-    vm.awesomeThings = [];
-    vm.classAnimation = '';
-    vm.creationDate = 1441712034082;
-    vm.showToastr = showToastr;
+    vm.week = new Week();
 
-    activate();
+    vm.isFirstPage = function () {
+      return vm.week.contains(DateService.now());
+    };
 
-    function activate() {
-      getWebDevTec();
-      $timeout(function() {
-        vm.classAnimation = 'rubberBand';
-      }, 4000);
-    }
+    vm.isLastPage = function () {
+      var threeMonthsFromNowDate = DateService.now().add(3, 'months');
 
-    function showToastr() {
-      toastr.info('Fork <a href="https://github.com/Swiip/generator-gulp-angular" target="_blank"><b>generator-gulp-angular</b></a>');
-      vm.classAnimation = '';
-    }
+      return vm.week.contains(threeMonthsFromNowDate);
+    };
 
-    function getWebDevTec() {
-      vm.awesomeThings = webDevTec.getTec();
+    vm.nextWeek = function () {
+      vm.week = vm.week.next();
+    };
 
-      angular.forEach(vm.awesomeThings, function(awesomeThing) {
-        awesomeThing.rank = Math.random();
-      });
-    }
+    vm.previousWeek = function () {
+      vm.week = vm.week.previous();
+    };
+
+    vm.isAvailableOn = AvailabilityRepository.isAvailableOn;
+
+    vm.isAPastDay = DateService.isAPastDay;
   }
 })();

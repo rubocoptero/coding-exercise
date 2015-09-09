@@ -2,14 +2,28 @@
   'use strict';
 
   describe('controllers', function(){
+    var vm, $controller, DateService;
 
     beforeEach(module('calendar'));
 
-    it('should define more than 5 awesome things', inject(function($controller) {
-      var vm = $controller('MainController');
-
-      expect(angular.isArray(vm.awesomeThings)).toBeTruthy();
-      expect(vm.awesomeThings.length > 5).toBeTruthy();
+    beforeEach(inject(function (_$controller_, _DateService_) {
+      $controller = _$controller_;
+      DateService = _DateService_;
     }));
+
+    function buildController () {
+      vm = $controller('MainController', {
+        DateService: DateService
+      });
+    }
+
+    describe('given a week', function () {
+      beforeEach(function () {
+        spyOn(DateService, 'now')
+          .and.returnValue(DateService.parse('2015-09-09'));
+
+        buildController();
+      });
+    });
   });
 })();

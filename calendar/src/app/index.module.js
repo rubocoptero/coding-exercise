@@ -2,6 +2,6 @@
   'use strict';
 
   angular
-    .module('calendar', ['ngAnimate', 'ngCookies', 'ngTouch', 'ngSanitize', 'ui.router']);
+    .module('calendar', ['week', 'availability', 'ngAnimate', 'ngCookies', 'ngTouch', 'ngSanitize', 'ui.router']);
 
 })();

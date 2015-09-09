@@ -6,10 +6,17 @@
 'use strict';
 
 var MainPage = function() {
-  this.jumbEl = element(by.css('.jumbotron'));
-  this.h1El = this.jumbEl.element(by.css('h1'));
-  this.imgEl = this.jumbEl.element(by.css('img'));
-  this.thumbnailEls = element(by.css('body')).all(by.repeater('awesomeThing in main.awesomeThings'));
+  this.previousWeekButton = element(by.id('previousWeekBtn'));
+  this.nextWeekButton = element(by.id('nextWeekBtn'));
+  this.days = element.all(by.css('.day-of-the-week'));
+
+  this.getTitle = function () {
+    return element(by.css('.current-week')).getText();
+  };
+
+  this.getClassesInDay = function (index) {
+    return this.days.get(index).getAttribute('class');
+  };
 };
 
 module.exports = new MainPage();

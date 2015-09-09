@@ -1,34 +1,26 @@
-<div class="container">
-
-  <div>
-    <acme-navbar creationDate="main.creationDate" />
-  </div>
-
-  <div class="jumbotron text-center">
-    <h1>'Allo, 'Allo!</h1>
-    <p class="lead">
-      <img src="assets/images/yeoman.png" alt="I'm Yeoman"><br>
-      Always a pleasure scaffolding your apps.
-    </p>
-    <p class="animated infinite" ng-class="main.classAnimation">
-      <button type="button" class="btn btn-lg btn-success" ng-click="main.showToastr()">Splendid Toastr</button>
-    </p>
-    <p>
-      With ♥ thanks to the contributions of<acme-malarkey extra-values="['Yeoman', 'Gulp', 'Angular']" />
-    </p>
-  </div>
-
-  <div class="row">
-    <div class="col-sm-6 col-md-4" ng-repeat="awesomeThing in main.awesomeThings | orderBy:'rank'">
-      <div class="thumbnail">
-        <img class="pull-right" ng-src="assets/images/{{ awesomeThing.logo }}" alt="{{ awesomeThing.title }}">
-        <div class="caption">
-          <h3>{{ awesomeThing.title }}</h3>
-          <p>{{ awesomeThing.description }}</p>
-          <p><a ng-href="{{awesomeThing.url}}">{{ awesomeThing.url }}</a></p>
-        </div>
-      </div>
-    </div>
-  </div>
-
+<div class="margin">
+  <table class="week-calendar">
+    <thead>
+      <tr>
+        <th colspan="7" class="week-pagination">
+          <button type="button" class="btn btn-primary" id="previousWeekBtn" ng-disabled="main.isFirstPage()" ng-click="main.previousWeek()">
+            <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+          </button>
+          <h5 class="current-week">
+            {{ main.week.startsOn().toISOString() | date: 'MMM d, yyyy' }} - {{ main.week.endsOn().toISOString() | date: 'MMM d, yyyy' }}
+          </h5>
+          <button type="button" class="btn btn-primary" id="nextWeekBtn" ng-disabled="main.isLastPage()" ng-click="main.nextWeek()">
+            <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+          </button>
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="day-of-the-week" ng-repeat="day in main.week.getDays() track by day.valueOf()" ng-class="{ 'past-day': main.isAPastDay(day), 'day-available': main.isAvailableOn(day) && !main.isAPastDay(day),  'day-unavailable': !main.isAvailableOn(day) && !main.isAPastDay(day)}">
+          {{ day.toISOString() | date: 'EEE M/d' }}
+        </td>
+      </tr>
+    </tbody>
+  </table>
 </div>
